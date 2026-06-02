@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - EMS Pro</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="auth-body">
+  <div class="auth-shell">
+    <div class="auth-panel">
+      <div class="auth-brand">
+        <div class="brand-icon"><i class="fas fa-users-gear"></i></div>
+        <div>
+          <h1>EMS Pro</h1>
+          <p>Admin access only</p>
+        </div>
+      </div>
+
+      <div class="flash-container auth-flash">
+        <% if (success && success.length) { success.forEach(msg => { %>
+          <div class="flash-msg success"><i class="fas fa-check-circle"></i><span><%= msg %></span></div>
+        <% }) } %>
+        <% if (error && error.length) { error.forEach(msg => { %>
+          <div class="flash-msg error"><i class="fas fa-exclamation-circle"></i><span><%= msg %></span></div>
+        <% }) } %>
+      </div>
+
+      <form action="/login" method="POST" class="auth-card">
+        <h2>Login</h2>
+        <p>Only authorized administrators can access the system.</p>
+        <label class="form-label">Email</label>
+        <input type="email" name="email" class="form-control" placeholder="admin@company.com" required>
+        <label class="form-label mt-3">Password</label>
+        <input type="password" name="password" class="form-control" placeholder="Enter password" required>
+        <button type="submit" class="btn btn-primary auth-submit"><i class="fas fa-right-to-bracket"></i> Login</button>
+        <div class="auth-link">New admin? <a href="/register">Create account</a></div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reports - EMS Pro</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="wrapper">
+  <%- include('../partials/sidebar') %>
+  <div class="main-content">
+    <%- include('../partials/topbar') %>
+    <div class="content-area">
+      <div class="page-header">
+        <div class="page-header-left">
+          <h1>Reports <span>Center</span></h1>
+          <p>Employee, department and payroll snapshot.</p>
+        </div>
+      </div>
+
+      <div class="row g-4 mb-4">
+        <div class="col-md-3 col-6"><div class="stat-card card-indigo"><div class="stat-icon"><i class="fas fa-users"></i></div><div class="stat-info"><h3><%= summary.totalEmp || 0 %></h3><p>Total Employees</p></div></div></div>
+        <div class="col-md-3 col-6"><div class="stat-card card-emerald"><div class="stat-icon"><i class="fas fa-user-check"></i></div><div class="stat-info"><h3><%= summary.activeEmp || 0 %></h3><p>Active</p></div></div></div>
+        <div class="col-md-3 col-6"><div class="stat-card card-rose"><div class="stat-icon"><i class="fas fa-user-xmark"></i></div><div class="stat-info"><h3><%= summary.inactiveEmp || 0 %></h3><p>Inactive</p></div></div></div>
+        <div class="col-md-3 col-6"><div class="stat-card card-cyan"><div class="stat-icon"><i class="fas fa-indian-rupee-sign"></i></div><div class="stat-info"><h3><%= Math.round(summary.avgSalary || 0).toLocaleString('en-IN') %></h3><p>Avg Salary</p></div></div></div>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-lg-5">
+          <div class="card-box">
+            <div class="box-header"><h5 class="box-title">Department Report</h5></div>
+            <% departments.forEach(d => { %>
+              <div class="report-line">
+                <div><strong><%= d.name %></strong><span><%= d.emp_count %> employee(s)</span></div>
+                <b>Rs <%= Number(d.salary_total || 0).toLocaleString('en-IN') %></b>
+              </div>
+            <% }) %>
+          </div>
+        </div>
+        <div class="col-lg-7">
+          <div class="table-wrapper">
+            <div class="table-toolbar"><span class="table-toolbar-title">Recent Employee Report</span></div>
+            <div style="overflow-x:auto;">
+              <table class="emp-table">
+                <thead><tr><th>ID</th><th>Name</th><th>Department</th><th>Status</th><th>Salary</th></tr></thead>
+                <tbody>
+                  <% recent.forEach(emp => { %>
+                    <tr><td><span class="emp-id-badge"><%= emp.emp_id %></span></td><td><%= emp.first_name %> <%= emp.last_name %></td><td><%= emp.dept_name || 'N/A' %></td><td><span class="status-pill <%= emp.status %>"><%= emp.status %></span></td><td class="salary-text">Rs <%= Number(emp.salary || 0).toLocaleString('en-IN') %></td></tr>
+                  <% }) %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="/js/script.js"></script>
+</body>
+</html>

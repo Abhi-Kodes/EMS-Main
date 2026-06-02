@@ -1,0 +1,66 @@
+<!-- ══════════ TOPBAR ══════════ -->
+<div class="topbar">
+  <button class="toggle-btn" id="toggleSidebar" title="Toggle Sidebar">
+    <i class="fas fa-bars"></i>
+  </button>
+
+  <div class="topbar-right">
+    <form action="/employees/search" method="GET" class="search-form">
+      <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input
+          type="text"
+          name="q"
+          id="liveSearch"
+          placeholder="Employee search karo..."
+          value="<%= typeof search !== 'undefined' ? search : '' %>"
+          autocomplete="off"
+        >
+      </div>
+    </form>
+
+    <a href="/employees/add" class="topbar-icon-btn" title="Add Employee">
+      <i class="fas fa-user-plus"></i>
+    </a>
+
+    <div class="dropdown">
+      <button class="admin-avatar dropdown-toggle-btn" type="button" id="adminDropdown">
+        <%= currentAdmin ? currentAdmin.name.substring(0, 2).toUpperCase() : 'AD' %>
+      </button>
+      <div class="admin-menu" id="adminMenu">
+        <div class="admin-menu-head">
+          <strong><%= currentAdmin ? currentAdmin.name : 'Admin User' %></strong>
+          <span><%= currentAdmin ? currentAdmin.email : 'Secure session' %></span>
+        </div>
+        <a href="/settings"><i class="fas fa-cog"></i> Settings</a>
+        <a href="/reports"><i class="fas fa-chart-column"></i> Reports</a>
+        <a href="/departments"><i class="fas fa-building"></i> Departments</a>
+        <form action="/logout" method="POST">
+          <button type="submit"><i class="fas fa-right-from-bracket"></i> Logout</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ FLASH MESSAGES ══════════ -->
+<div class="flash-container">
+  <% if (success && success.length > 0) { %>
+    <% success.forEach(msg => { %>
+      <div class="flash-msg success">
+        <i class="fas fa-check-circle"></i>
+        <span><%= msg %></span>
+        <button class="flash-close"><i class="fas fa-times"></i></button>
+      </div>
+    <% }) %>
+  <% } %>
+  <% if (error && error.length > 0) { %>
+    <% error.forEach(msg => { %>
+      <div class="flash-msg error">
+        <i class="fas fa-exclamation-circle"></i>
+        <span><%= msg %></span>
+        <button class="flash-close"><i class="fas fa-times"></i></button>
+      </div>
+    <% }) %>
+  <% } %>
+</div>

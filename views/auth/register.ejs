@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register - EMS Pro</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="auth-body">
+  <div class="auth-shell">
+    <div class="auth-panel">
+      <div class="auth-brand">
+        <div class="brand-icon"><i class="fas fa-user-shield"></i></div>
+        <div>
+          <h1>Create Admin</h1>
+          <p>Secure registration</p>
+        </div>
+      </div>
+
+      <div class="flash-container auth-flash">
+        <% if (error && error.length) { error.forEach(msg => { %>
+          <div class="flash-msg error"><i class="fas fa-exclamation-circle"></i><span><%= msg %></span></div>
+        <% }) } %>
+      </div>
+
+      <form action="/register" method="POST" class="auth-card">
+        <h2>Register</h2>
+        <p>Set a strong password, then log in and use the dashboard.</p>
+        <label class="form-label">Name</label>
+        <input type="text" name="name" class="form-control" placeholder="Admin User" required>
+        <label class="form-label mt-3">Email</label>
+        <input type="email" name="email" class="form-control" placeholder="admin@company.com" required>
+        <label class="form-label mt-3">Password</label>
+        <input type="password" name="password" class="form-control" minlength="6" required>
+        <label class="form-label mt-3">Confirm Password</label>
+        <input type="password" name="confirm_password" class="form-control" minlength="6" required>
+        <button type="submit" class="btn btn-primary auth-submit"><i class="fas fa-user-plus"></i> Register</button>
+        <div class="auth-link">Already admin? <a href="/login">Login</a></div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
